@@ -1,0 +1,2 @@
+# mym
+Miscellaneous mathematical functions.
