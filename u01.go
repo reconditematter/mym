@@ -6,7 +6,7 @@ package mym
 func U01() float64 {
 	n := prisrc.Uint64() & ((1 << 53) - 1)
 	for n == 0 {
-		n = prisrc.Uint64()
+		n = prisrc.Uint64() & ((1 << 53) - 1)
 	}
 	return float64(n) / (1 << 53)
 }
