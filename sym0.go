@@ -11,7 +11,7 @@ func NewSym0(n int) Sym0 {
 	if n < 1 {
 		panic("mym.NewSym0: n < 1")
 	}
-	return Sym0{n, make([]float64, n*(n-1)/2)}
+	return Sym0{n, make([]float64, n*(n+1)/2)}
 }
 
 // N -- returns the matrix size.
@@ -25,10 +25,10 @@ func (a Sym0) Get(i, j int) float64 {
 		panic("mym.Sym0.Get: index")
 	}
 	if i < j {
-		return a.a[i*a.n+j]
+		return a.a[i*a.n-(i-1)*i/2+j-i]
 	}
 	if i > j {
-		return a.a[j*a.n+i]
+		return a.a[j*a.n-(j-1)*j/2+i-j]
 	}
 	return 0
 }
@@ -39,11 +39,11 @@ func (a Sym0) Set(i, j int, x float64) {
 		panic("mym.Sym0.Set: index")
 	}
 	if i < j {
-		a.a[i*a.n+j] = x
+		a.a[i*a.n-(i-1)*i/2+j-i] = x
 		return
 	}
 	if i > j {
-		a.a[j*a.n+i] = x
+		a.a[j*a.n-(j-1)*j/2+i-j] = x
 		return
 	}
 }
