@@ -55,3 +55,15 @@ func Vhat3(u [3]float64) [3]float64 {
 	}
 	return [3]float64{0, 0, 0}
 }
+
+// Vmean3 -- returns the mean vector of u[0],u[1],...,u[len(u)-1].
+func Vmean3(u [][3]float64) [3]float64 {
+	n := len(u)
+	if n == 0 {
+		return [3]float64{0, 0, 0}
+	}
+	xs := AccuSum(n, func(i int) float64 { return u[i][0] })
+	ys := AccuSum(n, func(i int) float64 { return u[i][1] })
+	zs := AccuSum(n, func(i int) float64 { return u[i][2] })
+	return [3]float64{xs / float64(n), ys / float64(n), zs / float64(n)}
+}
