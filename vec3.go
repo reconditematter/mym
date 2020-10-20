@@ -47,6 +47,14 @@ func Vabs3(u [3]float64) float64 {
 	return math.Hypot(math.Hypot(u[0], u[1]), u[2])
 }
 
+// Vnrm3 -- returns |u| (L1 and L∞ norms).
+func Vnrm3(u [3]float64) (L1, Linf float64) {
+	x, y, z := math.Abs(u[0]), math.Abs(u[1]), math.Abs(u[2])
+	L1 = x + y + z
+	Linf = math.Max(math.Max(x, y), z)
+	return
+}
+
 // Vhat3 -- returns u/|u|. Returns a zero vector when |u|<ε.
 func Vhat3(u [3]float64) [3]float64 {
 	s := math.Hypot(math.Hypot(u[0], u[1]), u[2])
