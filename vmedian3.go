@@ -21,11 +21,13 @@ func Vmedian3(u [][3]float64) [3]float64 {
 	// initial approximation
 	mu := Vmean3(u)
 	//
-	// convergence test compares the sum of distances between two iterations
+	// convergence test based on relative change of mu (L1-norm)
 	convtest := func(mu1, mu2 [3]float64) bool {
-		s1 := AccuSum(len(u), func(i int) float64 { return Vabs3(Vsub3(mu1, u[i])) })
-		s2 := AccuSum(len(u), func(i int) float64 { return Vabs3(Vsub3(mu2, u[i])) })
-		return math.Abs(s1-s2) < Epsilon*math.Max(s1, s2)
+		t1, _ := Vnrm3(mu1)
+		t2, _ := Vnrm3(mu2)
+		w := Vsub3(mu1, mu2)
+		tw, _ := Vnrm3(w)
+		return tw <= Epsilon*math.Max(t1, t2)
 	}
 	//
 	for iter := 1; iter <= 5000; iter++ {
