@@ -4,6 +4,7 @@ package mym
 // More precisely, x∈[ε,1-ε], ε=1/2⁵³. This function is safe
 // for concurrent use by multiple goroutines.
 func U01() float64 {
+	inisrc()
 	n := prisrc.Uint64() & ((1 << 53) - 1)
 	for n == 0 {
 		n = prisrc.Uint64() & ((1 << 53) - 1)
