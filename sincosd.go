@@ -1,3 +1,6 @@
+// Copyright (c) 2019-2020 Leonid Kneller. All rights reserved.
+// Licensed under the MIT license.
+// See the LICENSE file for full license information.
 // Original C code has the following:
 // Cephes Math Library Release 2.1
 // Copyright 1987 by Stephen L. Moshier
