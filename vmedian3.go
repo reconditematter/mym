@@ -31,7 +31,7 @@ func Vmedian3(u [][3]float64) [3]float64 {
 		t2, _ := Vnrm3(mu2)
 		w := Vsub3(mu1, mu2)
 		tw, _ := Vnrm3(w)
-		return tw <= Epsilon*math.Max(t1, t2)
+		return tw <= SqrtEps*math.Max(t1, t2)
 	}
 	//
 	for iter := 1; iter <= 5000; iter++ {
