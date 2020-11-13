@@ -57,7 +57,11 @@ func Vmedian3(u [][3]float64) [3]float64 {
 		//
 		T := Vdiv3(S1, S2)
 		gamma := math.Min(1, eta/Vabs3(R))
+		if !FiniteIs(gamma) {
+			gamma = 0
+		}
 		munew := Vadd3(Vmul3(T, 1-gamma), Vmul3(mu, gamma))
+		//
 		if convtest(mu, munew) {
 			return munew
 		}
