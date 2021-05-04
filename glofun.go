@@ -4,14 +4,18 @@
 
 package mym
 
+import (
+	"math"
+)
+
 // FiniteIs -- returns true iff `x` is a finite floating point number.
 func FiniteIs(x float64) bool {
-	return (x - x) == 0
+	return !(math.IsNaN(x) || math.IsInf(x, 0))
 }
 
 // Finite -- returns true iff `x` and `y` are finite floating point numbers.
 func Finite(x, y float64) bool {
-	return ((x - x) == 0) && ((y - y) == 0)
+	return !(math.IsNaN(x) || math.IsInf(x, 0) || math.IsNaN(y) || math.IsInf(y, 0))
 }
 
 // Sq -- returns x².
