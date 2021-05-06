@@ -4,6 +4,10 @@
 
 package mym
 
+import (
+	"math"
+)
+
 // RVec -- represents a vector of variable size with real (float64) elements.
 type RVec struct {
 	vec []float64
@@ -101,6 +105,26 @@ func (x RVec) span(y RVec) (int, int) {
 	return imin(xL, yL), imax(xU, yU)
 }
 
+// Copy -- returns a copy of `x`.
+func (x RVec) Copy() RVec {
+	L, U := x.Ix()
+	z := Genrvec(L, U)
+	for i := L; i <= U; i++ {
+		z.U(i, x.E(i))
+	}
+	return z
+}
+
+// Neg -- returns the negation -x.
+func (x RVec) Neg() RVec {
+	L, U := x.Ix()
+	z := Genrvec(L, U)
+	for i := L; i <= U; i++ {
+		z.U(i, -x.E(i))
+	}
+	return z
+}
+
 // Add -- returns the sum x+y.
 func (x RVec) Add(y RVec) RVec {
 	L, U := x.span(y)
@@ -147,6 +171,56 @@ func (x RVec) Dot(y RVec) float64 {
 	s := 0.0
 	for i := L; i <= U; i++ {
 		s += x.E(i) * y.E(i)
+	}
+	return s
+}
+
+// Sum -- returns the sum of elements of `x`.
+func (x RVec) Sum() float64 {
+	L, U := x.Ix()
+	s := 0.0
+	for i := L; i <= U; i++ {
+		s += x.E(i)
+	}
+	return s
+}
+
+// Sumabs -- returns the sum of the absolute values of elements of `x`.
+func (x RVec) Sumabs() float64 {
+	L, U := x.Ix()
+	s := 0.0
+	for i := L; i <= U; i++ {
+		s += math.Abs(x.E(i))
+	}
+	return s
+}
+
+// Max -- returns the maximum of elements of `x`.
+func (x RVec) Max() float64 {
+	L, U := x.Ix()
+	s := 0.0
+	for i := L; i <= U; i++ {
+		s = math.Max(s, x.E(i))
+	}
+	return s
+}
+
+// Maxabs -- returns the maximum of the absolute values of elements of `x`.
+func (x RVec) Maxabs() float64 {
+	L, U := x.Ix()
+	s := 0.0
+	for i := L; i <= U; i++ {
+		s = math.Max(s, math.Abs(x.E(i)))
+	}
+	return s
+}
+
+// Min -- returns the minimum of elements of `x`.
+func (x RVec) Min() float64 {
+	L, U := x.Ix()
+	s := 0.0
+	for i := L; i <= U; i++ {
+		s = math.Min(s, x.E(i))
 	}
 	return s
 }
